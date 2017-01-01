@@ -34,7 +34,7 @@ class FSEconomy(object):
             self.assignments = self.assignments[self.assignments.UnitType == 'passengers']
         grouped = self.assignments.groupby(['FromIcao', 'ToIcao'], as_index=False)
         aggregated = grouped.aggregate(np.sum)
-        return aggregated.sort('Pay', ascending=False)
+        return aggregated.sort_values(by='Pay', ascending=False)
 
     def get_aircrafts_by_icao(self, icao):
         data = common.retry(self.get_query, const.LINK + 'query=icao&search=aircraft&icao={}'.format(icao))
